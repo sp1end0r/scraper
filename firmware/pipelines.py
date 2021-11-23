@@ -34,8 +34,8 @@ class FirmwarePipeline(FilesPipeline):
     def file_path(self, request, response=None, info=None):
         extension = os.path.splitext(os.path.basename(
             urllib.parse.urlsplit(request.url).path))[1]
-        return "%s/%s%s" % (request.meta["vendor"],
-                            hashlib.sha1(request.url.encode("utf8")).hexdigest(), extension)
+        return "%s/%s" % (request.meta["vendor"], os.path.basename(urllib.request.urlparse(request.url).path))# extension)
+#                    hashlib.sha1(request.url.encode("utf8")).hexdigest(), extension)
 
     # overrides function from FilesPipeline
     def get_media_requests(self, item, info):
